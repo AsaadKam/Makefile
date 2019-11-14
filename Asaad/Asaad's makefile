@@ -1,0 +1,27 @@
+cc=gcc_s
+
+Include_Path        =./Inc/
+
+Source_Path         = ./Src/
+
+ALL_OBJCTS_DIR =  ./Dependencies/
+OBJECT_FILES   =  DIO.o LCD.o main.o 
+LINK           =  app.exe
+CLEAN_TARGET   =  $(LINK) $(ALL_OBJCTS_DIR)*.o
+
+vpath %.c ./Src
+vpath %.o $(Dependencies_Path)
+vpath %.h ./Inc/
+all    : $(LINK)
+
+Compile: $(OBJECT_FILES)
+%.o    : %.c 
+	$(cc) -c -I $(Include_Path) $< -o ./Dependencies/$@
+
+clean  :
+	del $(CLEAN_TARGET)
+	
+Link   :$(LINK)	
+
+$(LINK):$(OBJECT_FILES)	
+	$(cc) $(ALL_OBJCTS_DIR)*.o -o $@
