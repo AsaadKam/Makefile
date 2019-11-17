@@ -1,27 +1,34 @@
-cc=gcc_s
+ vpath %.c ./Src
+ vpath %.o ./Dependencies/
+ vpath %.h ./Inc/
+ 
+SOURCES = ./Src/
+Include_Path = ./Inc
+OBJECTS = ./Dependencies/
+SOURCES_Files = DIO.c LCD.c main.c
+OBJECT_FILES = DIO.o LCD.o main.o code.o
+LINK = app.exe
+CLEAN_TARGET = $(LINK) $(OBJECTS)*.o
+cc = gcc_S
 
-Include_Path        =./Inc/
+all : $(OBJECT_FILES)
 
-Source_Path         = ./Src/
-
-ALL_OBJCTS_DIR =  ./Dependencies/
-OBJECT_FILES   =  DIO.o LCD.o main.o 
-LINK           =  app.exe
-CLEAN_TARGET   =  $(LINK) $(ALL_OBJCTS_DIR)*.o
-
-vpath %.c ./Src
-vpath %.o $(Dependencies_Path)
-vpath %.h ./Inc/
-all    : $(LINK)
-
-Compile: $(OBJECT_FILES)
-%.o    : %.c 
-	$(cc) -c -I $(Include_Path) $< -o ./Dependencies/$@
-
-clean  :
-	del $(CLEAN_TARGET)
+clean : 
+	rm $(CLEAN_TARGET)
+	echo clean file done !
 	
-Link   :$(LINK)	
+%.o : %.c %.h
+	$(cc) -c -I$(Include_Path) $< -o $(OBJECTS)$@
+	echo generating object file done !
 
-$(LINK):$(OBJECT_FILES)	
-	$(cc) $(ALL_OBJCTS_DIR)*.o -o $@
+#Compiling
+compile : 
+	make_S $(OBJ_Files)
+	
+#Linking The Project
+Link:
+	make_S $(LINK)
+
+$(LINK) : $(OBJECT_FILES)
+		$(cc) $(OBJECTS)*.o -o $@
+	echo linking file done !
