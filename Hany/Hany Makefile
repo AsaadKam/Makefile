@@ -17,7 +17,7 @@ clean :
 	rm $(CLEAN_TARGET)
 	echo clean file done !
 	
-%.o : %.c
+%.o : %.c %.h
 	$(cc) -c -I$(HEADERS) $< -o $(OBJECTS)$@
 	echo generating object file done !
 
